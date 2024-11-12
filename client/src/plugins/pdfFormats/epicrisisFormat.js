@@ -1,0 +1,60 @@
+export default [
+    {
+        type : "text",
+        key : "InfoPatient",
+        text : "Informacion del Paciente ",
+        value : "",
+        x : 2,
+        y : 37,
+        
+    },
+    {
+        type : "rect",
+        key : "infoPatientRect",
+        x   : 2,
+        y   : 40,
+        w   : 205,
+        h   : 15,
+    },
+    {
+        type : "text",
+        key : "fullName",
+        text : "Paciente : ",
+        x   : 3,
+        y   : 43,
+        x1  : 10,
+    },
+    {
+        type : "text",
+        key : "age",
+        text : "Edad : ",
+        x   : 3,
+        y   : 46,
+        x1  : 10,
+    },
+    {
+        type : "text",
+        key : "cellphone",
+        text : "Celular : ",
+        x   : 3,
+        y   : 49,
+        x1  : 10,
+    },
+    {
+        type : "text",
+        key : "assignedAdministrator",
+        text  : "EPS : ",
+        x   : 3,
+        y   : 52,
+        x1  : 10,
+    },
+    {
+        type : "text",
+        key : "diagnoses",
+        text  : "Diagnostico : ",
+        x   : 3,
+        y   : 59,
+        x1  : 10,
+    },
+
+]

@@ -1,0 +1,100 @@
+import axios from "@/plugins/requests.js"
+import Helper from "@/helpers/helpers.js" 
+
+export default class OrderService {
+    constructor(){
+
+    }
+    async getInfo(params){ // all
+        try {
+            const response = await axios.get(`/api/v1/order`) 
+            return response       
+        } catch (error) {
+            return {error}            
+        }
+    }
+    async findInfo(params){ // filter
+        try {
+            const response = await axios.get(`/api/v1/order`, params) 
+            return response       
+        } catch (error) {
+            return {error}            
+        }
+    }
+
+    async searchOrders(params){
+        try {
+            const response = await axios.get(`/api/v1/order/`, params); // order / items/order-lab
+            return response
+        } catch (error) {
+            return {error}
+        }
+    }
+    
+    async saveInfo(params){
+        try {
+            const response = await axios.post(`/api/v1/order`, params) 
+            return response       
+        } catch (error) {
+            return {error}            
+        }
+    }
+
+    async updateInfo(params){
+        try {
+            const response = await axios.put(`/api/v1/order/${params.id}`, params) 
+            return response       
+        } catch (error) {
+            return {error}            
+        }
+    }
+    async deleteInfo(params){
+        try {
+            const response = await axios.delete(`/api/v1/order/${params.id}`) 
+            return response       
+        } catch (error) {
+            return {error}            
+        }
+    }
+     async updateSubInfo(params){
+        try {
+            const response = await axios.put(`/api/v1/order/${params.id}`, params) 
+            return response       
+        } catch (error) {
+            return {error}            
+        }
+    }
+    async deleteSubInfo(params){
+        try {
+            const response = await axios.delete(`/api/v1/order/${params.id}`) 
+            return response       
+        } catch (error) {
+            return {error}            
+        }
+    }
+    async downloadPDF(params, nameField="order"){
+        try {            
+            const {AttentionId} = params;                             
+            const response = await axios.requestAxios({
+                url: `/api/v1/order/${params.id}/pdf`,
+                method: 'GET',
+                responseType: 'blob', // Obtener el contenido como Blob
+                headers: {
+                    'Accept': 'application/pdf' // Asegurarse de aceptar el tipo PDF
+                }
+            });           
+            if(response && response.data){ 
+                Helper.downloadFilePdf(response.data, `${params.id}-order-${nameField}.pdf`);
+                return { data : "OK" };
+            }
+        } catch (error) {
+            console.log("Error Download pdf ", this.type, error)
+            return error = {...error, error: true}
+        }
+    }
+    linkPdf(params){
+        return `/api/v1/order/${params.id}/pdf`
+    }
+    
+
+}
