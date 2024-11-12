@@ -1,0 +1,67 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: $CONTAINER_DB
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ilc_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  node-api:
+    image: server:latest
+    ports:
+      - "4000:4000"
+    container_name: $CONTAINER_NODE_API
+    environment:
+      NODE_ENV: docker
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - app-network
+    
+
+  client:
+    image: client:latest
+    ports:
+      - "8053:80"
+    container_name: $CONTAINER_CLIENT
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    networks:
+      - app-network
+  
+  client-ext:
+    image: client:latest
+    ports:
+      - "7701:80"
+    container_name: $CONTAINER_EXTERNAL
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    networks:
+      - app-network
+    
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "ilc_db",
+    "host": "db",
+    "dialect": "postgres",
+    "seederStorage": "json"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "ilc_db",
+    "host": "db",
+    "dialect": "postgres",
+    "seederStorage": "json"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "ilc_db",
+    "host": "db",
+    "dialect": "postgres",
+    "seederStorage": "json"
+  }
+}

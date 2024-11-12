@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  backend:
+
+services:
+  postgresql-master:
+    image: 'docker.io/bitnami/postgresql:11-debian-10'
+    restart: always
+    network_mode: "host"    
+    volumes:
+      - 'postgresql_master_data:/bitnami/postgresql'
+    environment:
+      - POSTGRESQL_USERNAME=postgres_ilc
+      - POSTGRESQL_PASSWORD=postgres
+      - POSTGRESQL_DATABASE=ilc_db
+  
+
+volumes:
+  postgresql_master_data:
+    driver: local
